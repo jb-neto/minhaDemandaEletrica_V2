@@ -11,7 +11,7 @@ export default function Home() {
     // Forçar renderização dos elementos quando chamada
     const [, forceUpdate] = useState(0);
 
-    /* 
+    /* s
     Força a renderização quando a tela é focada novamente. 
     Isto foi feito para se atualizar a exibição da quantidade de itens selecinados na Screen "HOME"
     */
