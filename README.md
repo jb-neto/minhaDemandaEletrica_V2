@@ -1,7 +1,7 @@
 # Minha Demanda Elétrica
 Aplicação Mobile, ainda em desenvolvimento, utilizando o framework React Native (Primeira aplicação)
 
-O Aplicativo tem como objetivo cálcular e dimensionar a demanda de energia elétrica para edificações individuais segundo a norma ND 5.1 da CEMIG - Minas Gerais.
+O Aplicativo tem como objetivo calcular e dimensionar a demanda de energia elétrica para edificações individuais segundo a norma ND 5.1 da CEMIG - Minas Gerais.
 Para isso, o usuário deve informar na aplicação os aparelhos eletrodomésticos que pretende ter em sua edificação e, a partir disso,
 a aplicação retornará o cálculo da demanda elétrica, da carga instalada e também informações sobre o padrão de entrada de energia (bitolas, fios, disjuntores, etc)
 
