@@ -26,8 +26,6 @@ const styles = StyleSheet.create({
 
     listItems: {
         padding: 12,
-        borderBottomWidth: 1,
-        height: 130,
         borderBottomColor: colors.lightgray,
         flexDirection: 'row',
         backgroundColor: colors.white,

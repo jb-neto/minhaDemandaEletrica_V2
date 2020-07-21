@@ -5,7 +5,8 @@ import { useNavigation } from '@react-navigation/native'
 
 import styles from './styles';
 import itemsMenu from './data'; // Contém nome e ícones da lista tela
-
+import { SimpleLineIcons } from '@expo/vector-icons';
+import colors from '../../constants/colors';
 
 export default function Home() {
     // Forçar renderização dos elementos quando chamada
@@ -86,7 +87,8 @@ export default function Home() {
 
                 {/* Botão de calcular - Direciona para a Screen Results */}
                 <TouchableOpacity style={styles.buttonCalculate} onPress={() => navigationGoResults()}>
-                    <Text style={styles.txt_buttonCalculate}> Calcular Demanda ! </Text>
+                    <SimpleLineIcons name="energy" size={24} color={colors.yellow} />
+                    <Text style={styles.txt_buttonCalculate}> Calcular Demanda !</Text>
                 </TouchableOpacity>
 
             </ImageBackground>

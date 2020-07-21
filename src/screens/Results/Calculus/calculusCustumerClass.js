@@ -1,14 +1,14 @@
 import React from 'react';
-import dataTables from '../../../constants/dataTables';
+import custumerClass from '../../../constants/dataCustumerClass';
 import Calculus from './calculus'
 
 export default function CalculusConsumerClass() {
 
   var { demandTotal, connectedLoadTotal } = Calculus()
 
-  const custumerClassTable_A = dataTables.customerA
-  const custumerClassTable_B = dataTables.customerB
-  const custumerClassTable_C = dataTables.customerC
+  const custumerClassTable_A = custumerClass.customerA
+  const custumerClassTable_B = custumerClass.customerB
+  const custumerClassTable_C = custumerClass.customerC
 
 
   if (connectedLoadTotal <= 10) {

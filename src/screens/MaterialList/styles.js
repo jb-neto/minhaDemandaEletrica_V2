@@ -7,33 +7,26 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'stretch',
     },
 
     containerHeader: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: 60
     },
 
     containerInformationEspecification: {
-        justifyContent: 'space-between'
-    },
+        justifyContent: 'space-between',
+   },
 
     containerInformation: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
 
 
     // Views
 
     listItemsEspecification: {
-        padding: 12,
-        borderBottomWidth: 1,
-        height: 140,
-        borderBottomColor: colors.lightgray,
         backgroundColor: colors.white,
         margin: 10,
         borderRadius: 10,
@@ -44,9 +37,6 @@ const styles = StyleSheet.create({
 
     listItems: {
         padding: 12,
-        borderBottomWidth: 1,
-        height: 80,
-        borderBottomColor: colors.lightgray,
         flexDirection: 'row',
         backgroundColor: colors.white,
         margin: 10,
@@ -84,16 +74,19 @@ const styles = StyleSheet.create({
     },
 
     //Botões
-
     button: {
         backgroundColor: colors.blackalpha,
         padding: 8,
-        width: 150,
         marginHorizontal: 10,
         marginVertical: 5,
         borderRadius: 10,
+        flexDirection:'row', 
+        alignItems:'center',
+        textAlign:'center'
+    },
+
+    txt_button: {
         color: colors.yellow,
-        textAlign: 'center',
         fontWeight: 'bold',
     },
 
@@ -117,6 +110,20 @@ const styles = StyleSheet.create({
     txt_listItemsModal: {
         fontSize: 16,
         fontWeight: 'bold'
+    },
+
+
+   
+    txt_titleBoxConfig: {
+        color: colors.yellow,
+        fontSize: 12,
+        height: 35,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        backgroundColor: colors.blackalpha,
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
+        fontWeight:'bold'
     },
 
 });

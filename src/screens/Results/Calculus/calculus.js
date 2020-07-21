@@ -1,5 +1,6 @@
 import React from 'react';
 import dataTables from '../../../constants/dataTables';
+import dataClientEspecification from '../../../constants/dataClientEspecification';
 import { DemandMotors, DemandWeld, DemandXRay } from './demandEspecialCalculus'
 
 export default function Calculus() {
@@ -72,7 +73,7 @@ export default function Calculus() {
     switch (i) {
       case 0:
         // Variável que vai armazenar a unidade consumidora (clientType) selecionada na Screen
-        let [clientType] = dataTables.clientType.filter(item => item.select === true)
+        let [clientType] = dataClientEspecification.clientType.filter(item => item.select === true)
 
         // Condição para unidade consumidora (clientType) diferente de residencial e SEM intervalo de limite para o fator de Demanda
         if (clientType.title != 'Residencial' && clientType.limitFD_KVA === null) {

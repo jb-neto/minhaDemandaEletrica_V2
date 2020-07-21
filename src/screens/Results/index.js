@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, ImageBackground, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
-import styles from './styles';
 
-import dataTables from '../../constants/dataTables';
+import styles from './styles';
+import dataClientEspecification from '../../constants/dataClientEspecification';
 import Calculus from './Calculus/calculus'
-import CalculusConsumerClass from './Calculus/calculusConsumerClass'
+import CalculusCustumerClass from './Calculus/calculusCustumerClass'
+
+import { FontAwesome } from '@expo/vector-icons';
+import colors from '../../constants/colors';
 
 export default function Results() {
 
@@ -16,7 +19,7 @@ export default function Results() {
 
   //Resultado dos cáclulos de demanda, carga instalada e classe (Faixa) de consumidor
   var { demandTotal, connectedLoadTotal } = Calculus()
-  var { custumerClass_A, custumerClass_B, custumerClass_C } = CalculusConsumerClass()
+  var { custumerClass_A, custumerClass_B, custumerClass_C } = CalculusCustumerClass()
 
   // Rotas
   const navigation = useNavigation();
@@ -37,15 +40,15 @@ export default function Results() {
 
   // Determinando a classe de consumidor (A, B ou C) de acordo com o sistema de fases selecionado na modal Fases 
   // Trifásico
-  if (dataTables.fases[0].select) {
+  if (dataClientEspecification.fases[0].select) {
     var customerClass = custumerClass_C
   }
   // Bifásico
-  else if (dataTables.fases[1].select) {
+  else if (dataClientEspecification.fases[1].select) {
     var customerClass = custumerClass_B
   }
   // Monofásico
-  else if (dataTables.fases[2].select) {
+  else if (dataClientEspecification.fases[2].select) {
     var customerClass = custumerClass_A
   }
 
@@ -93,7 +96,7 @@ export default function Results() {
 
 
         {/* Botões das configurações de rede que permitem acesso às modais,tornando-as visíveis quando selecionados 
-        É feito um acesso às tabelas presentes em dataTables para se verificar quais os items se encontram selecionados (select==true) 
+        É feito um acesso às tabelas presentes em dataClientEspecification para se verificar quais os items se encontram selecionados (select==true) 
         */}
         <View style={styles.boxConfig}>
           <Text style={styles.txt_titleBoxConfig}>Configurações da rede</Text>
@@ -101,19 +104,19 @@ export default function Results() {
           <View style={styles.containerButtons}>
 
             <TouchableOpacity onPress={() => { setModalVisibleFases(!modalVisibleFases) }}>
-              {dataTables.fases.map((item) => (
+              {dataClientEspecification.fases.map((item) => (
                 item.select ? <Text key={item.title} style={styles.buttonConfig} >{item.title}</Text> : null))
               }
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => { setModalVisibleTypeConsumer(!modalVisibleTypeConsumer) }}>
-              {dataTables.clientType.map((item) => (
+              {dataClientEspecification.clientType.map((item) => (
                 item.select ? <Text key={item.title} style={styles.buttonConfig} >{item.title.substring(0, 10).concat('...')} </Text> : null))
               }
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => { setModalVisiblePlaceConsumer(!modalVisiblePlaceConsumer) }}>
-              {dataTables.placeClientType.map((item) => (
+              {dataClientEspecification.placeClientType.map((item) => (
                 item.select ? <Text key={item.title} style={styles.buttonConfig} >{item.title}</Text> : null))
               }
             </TouchableOpacity>
@@ -151,13 +154,13 @@ export default function Results() {
           </View>
 
           <FlatList
-            data={dataTables.fases}
+            data={dataClientEspecification.fases}
             keyExtractor={item => item.title}
             renderItem={({ item, index }) =>
               <TouchableOpacity style={styles.listItemsModal}
                 onPress={() => {
-                  dataTables.fases.map(item => item.select = false),
-                    dataTables.fases[index].select = true,
+                  dataClientEspecification.fases.map(item => item.select = false),
+                    dataClientEspecification.fases[index].select = true,
                     setModalVisibleFases(!modalVisibleFases)
                 }
                 }>
@@ -175,13 +178,13 @@ export default function Results() {
           </View>
 
           <FlatList
-            data={dataTables.clientType}
+            data={dataClientEspecification.clientType}
             keyExtractor={item => item.title}
             renderItem={({ item, index }) =>
               <TouchableOpacity style={styles.listItemsModal}
                 onPress={() => {
-                  dataTables.clientType.map(item => item.select = false),
-                    dataTables.clientType[index].select = true,
+                  dataClientEspecification.clientType.map(item => item.select = false),
+                    dataClientEspecification.clientType[index].select = true,
                     setModalVisibleTypeConsumer(!modalVisibleTypeConsumer)
                 }
                 }>
@@ -199,14 +202,14 @@ export default function Results() {
           </View>
 
           <FlatList
-            data={dataTables.placeClientType}
+            data={dataClientEspecification.placeClientType}
             keyExtractor={item => item.title}
             renderItem={({ item, index }) =>
               <TouchableOpacity
                 style={styles.listItemsModal}
                 onPress={() => {
-                    dataTables.placeClientType.map(item => item.select = false),
-                    dataTables.placeClientType[index].select = true,
+                  dataClientEspecification.placeClientType.map(item => item.select = false),
+                    dataClientEspecification.placeClientType[index].select = true,
                     setModalVisiblePlaceConsumer(!modalVisiblePlaceConsumer)
                 }
                 }>
@@ -218,14 +221,17 @@ export default function Results() {
         </Modal>
 
 
-        <View style={styles.containerBoxes}>
+        <View style={styles.containerButtons2}>
 
-          <TouchableOpacity onPress={() => navigationGoResumeDemand()} >
-            <Text style={styles.button}> Resumo da demanda  </Text>
+          <TouchableOpacity style={styles.buttonCalculate} onPress={() => navigationGoResumeDemand()} >
+            <FontAwesome name="check-square-o" size={24} color={colors.yellow} />
+              <Text style={styles.txt_button}> Resumo</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigationGoMaterialList(customerClass)} >
-            <Text style={styles.button}> Lista de materiais  </Text>
+
+          <TouchableOpacity style={styles.buttonCalculate} onPress={() => navigationGoMaterialList(customerClass)} >
+              <FontAwesome name="list" size={24} color={colors.yellow} />
+              <Text style={styles.txt_button}> Materiais</Text>
           </TouchableOpacity>
 
         </View>

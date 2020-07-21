@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     },
 
     logoContainer: {
-        marginTop: 10,
+        marginTop: -5,
         marginBottom: 5
     },
 
@@ -95,17 +95,17 @@ const styles = StyleSheet.create({
     txt_buttonCalculate: {
         color: colors.yellow,
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
 
     // Botões
 
     buttonCalculate: {
+        flexDirection:'row',
         backgroundColor: colors.blackalpha,
         margin: 10,
         padding: 8,
         borderRadius: 10,
-        textAlign: 'center',
         fontWeight: 'bold',
         alignItems: 'center',
         justifyContent: 'center'

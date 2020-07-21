@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     containerBoxes: {
         padding: 8,
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 
     containerButtons: {
@@ -27,6 +27,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center'
     },
+
+    containerButtons2: {
+        padding: 8,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+    },
+
 
     // Views
 
@@ -112,16 +119,23 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        color: colors.yellow,
-        width: widthPercentageToDP(40),
-        height: 35,
-        fontSize: 12,
         backgroundColor: colors.blackalpha,
-        margin: 10,
+        padding: 8,
+        marginHorizontal: 10,
+        marginVertical: 5,
         borderRadius: 10,
-        textAlign: 'center',
-        textAlignVertical: 'center',
+        flexDirection:'row', 
+        flexWrap:'wrap',
+       // width: widthPercentageToDP(30),
+
+        
     },
+
+    txt_button: {
+        color: colors.yellow,
+        fontWeight: 'bold',
+    },
+
 
 
     // Modals
@@ -146,7 +160,18 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
 
-
+    buttonCalculate: {
+        flexDirection:'row',
+        backgroundColor: colors.blackalpha,
+        margin: 10,
+        padding: 8,
+        borderRadius: 10,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    
 });
 
 export default styles;

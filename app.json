@@ -1,14 +1,15 @@
 {
   "expo": {
-    "name": "minhaDemandaEletrica_V2",
-    "slug": "minhaDemandaEletrica_V2",
+    "name": "Minha Demanda Elétrica",
+    "slug": "minha-demanda",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      //"resizeMode": "contain",
+      "backgroundColor": "#F7BE00"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

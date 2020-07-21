@@ -7,7 +7,7 @@ export default function App() {
     return (
         <>
             <Routes />
-            {/* <StatusBar style='inverted'/> */}
+            <StatusBar hidden={true} style='auto'/>
         </>
     );
 }
