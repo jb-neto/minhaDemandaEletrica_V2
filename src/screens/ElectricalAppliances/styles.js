@@ -19,12 +19,6 @@ const styles = StyleSheet.create({
 
     //Containers
 
-    container: {
-        flex: 1,
-        alignItems: 'stretch',
-        justifyContent: 'center',
-    },
-
     containerHeader: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -42,13 +36,13 @@ const styles = StyleSheet.create({
         width: 80,
         height: 80,
         margin: 15,
-        tintColor: colors.blackalpha
+        tintColor: colors.backgroundAlpha
     },
 
     itemsList: {
         padding: 12,
         borderBottomWidth: 1,
-        borderBottomColor: colors.light,
+        borderBottomColor: colors.borderList,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
@@ -61,58 +55,56 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginVertical: 5,
         borderRadius: 10,
-        borderWidth: 0,
         textAlign: 'center',
-        backgroundColor: colors.white,
+        backgroundColor: colors.secondary,
         elevation: 8
     },
 
     txt_titleList: {
         fontSize: 18,
-        backgroundColor: colors.blackalpha,
-        color: colors.yellow,
-        padding: 10,
+        backgroundColor: colors.backgroundAlpha,
+        color: colors.primary,
+        padding: 12,
 
     },
 
     txt_titleItem: {
         fontSize: 16,
-
     },
 
     txt_subTitleItem: {
         fontSize: 12,
-        color: colors.blacklight
+        color: colors.subTilte
     },
 
     txt_qtdItems: {
-        fontSize: 20,
-        width: 40,
+        fontSize: 18,
+        width: 45,
         textAlign: 'center',
-        color: colors.blacklight
+        color: colors.subTilte
     },
 
     // Botões
 
     buttonClear: {
-        backgroundColor: colors.blackalpha,
+        backgroundColor: colors.backgroundAlpha,
         padding: 8,
         width: 150,
         marginHorizontal: 10,
         marginVertical: 5,
         borderRadius: 10,
-        borderWidth: 0,
-        color: colors.yellow,
+        color: colors.primary,
         textAlign: 'center',
+        fontWeight:'bold'
     },
 
 
     buttonAddSub: {
         fontSize: 18,
-        color: colors.yellow,
+        color: colors.primary,
         width: 25,
         height: 25,
-        backgroundColor: colors.blackalpha,
+        backgroundColor: colors.backgroundAlpha,
         borderWidth: 1,
         borderRadius: 5,
         textAlign: 'center'

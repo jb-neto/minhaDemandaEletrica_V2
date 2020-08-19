@@ -1,25 +1,38 @@
 import React, { useState } from 'react';
+
 import { View, Text, FlatList, ImageBackground, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 
-import styles from './styles';
-import dataClientEspecification from '../../constants/dataClientEspecification';
-import Calculus from './Calculus/calculus'
-import CalculusCustumerClass from './Calculus/calculusCustumerClass'
-
 import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+
 import colors from '../../constants/colors';
+import styles from './styles';
+
+import dataClientEspecification from '../../constants/dataClientEspecification';
+
+import Calculus from './Calculus/calculus'
+import CalculusCustomerClass from './Calculus/calculusCustomerClass'
+import BoxResults from '../../components/BoxResults'
+
+
 
 export default function Results() {
 
   // Modals (Selecionar: Sistem de Fases, Unidade Consumidora e place da Unidade Consumidora )
-  const [modalVisibleFases, setModalVisibleFases] = useState(false)
-  const [modalVisibleTypeConsumer, setModalVisibleTypeConsumer] = useState(false)
-  const [modalVisiblePlaceConsumer, setModalVisiblePlaceConsumer] = useState(false)
+  const [modalVisibleTypeCustomer, setModalVisibleTypeCustomer] = useState(false)
+  const [modalVisiblePlaceCustomer, setModalVisiblePlaceCustomer] = useState(false)
+
 
   //Resultado dos cáclulos de demanda, carga instalada e classe (Faixa) de consumidor
   var { demandTotal, connectedLoadTotal } = Calculus()
-  var { custumerClass_A, custumerClass_B, custumerClass_C } = CalculusCustumerClass()
+  var {
+    customerClass_A,
+    customerClass_B,
+    customerClass_C,
+    customerClass_D,
+    customerClass_E,
+    customerClass_F } = CalculusCustomerClass()
 
   // Rotas
   const navigation = useNavigation();
@@ -29,224 +42,222 @@ export default function Results() {
   }
 
   function navigationGoMaterialList(customerClass) {
-
-    navigation.navigate('MaterialList',
-      {
-        customerClass: customerClass
-
-      }
-    )
+    navigation.navigate('MaterialList', { customerClass })
   }
 
   // Determinando a classe de consumidor (A, B ou C) de acordo com o sistema de fases selecionado na modal Fases 
-  // Trifásico
-  if (dataClientEspecification.fases[0].select) {
-    var customerClass = custumerClass_C
-  }
-  // Bifásico
-  else if (dataClientEspecification.fases[1].select) {
-    var customerClass = custumerClass_B
-  }
-  // Monofásico
-  else if (dataClientEspecification.fases[2].select) {
-    var customerClass = custumerClass_A
+
+  let customerClassArray = [
+    customerClass_A,
+    customerClass_B,
+    customerClass_C,
+    customerClass_D,
+    customerClass_E,
+    customerClass_F]
+
+  for (let i = 0; i < customerClassArray.length; i++) {
+    if (dataClientEspecification.placeClientType[i].select) {
+      var customerClass = customerClassArray[i]
+    }
   }
 
-  // Lista de elementos e informações que serão exibidas na tela
-  var listInformation = [
-    { name: "Quantidade de fios", info: customerClass.qtdWires, unid: '' },
-    { name: "Quantidade de fases", info: customerClass.fases, unid: '' },
-    { name: "Disjuntor NEMA", info: customerClass.circuitBreakerNEMA, unid: 'A' },
-    { name: "Disjuntor DIN", info: customerClass.circuitBreakerDIN, unid: 'A' },
-    { name: "Condutor fase/neutro", info: customerClass.conductingWire, unid: 'mm²' },
-    { name: "Condutor de aterramento", info: customerClass.groundingWire, unid: 'mm²' },
-    { name: "Condutor de proteção", info: customerClass.protectiveWire, unid: 'mm²' },
-    { name: "Eletroduto PVC", info: customerClass.conduitPVC, unid: 'mm' },
-    { name: "Eletroduto Aço", info: customerClass.conduitSteel, unid: 'mm' },
-    { name: "Quantidade de eletrodos", info: customerClass.qtdGroundingElectrode, unid: '' },
-  ]
+  function RenderListDesign() {
 
+    /* Lista de elementos e informações que serão exibidas na tela.
+    Os valores sao obtidos a partir da variável "customerClass calculada anteriormente" */
+
+    let listInformation = [
+      { name: "Quantidade de fios", info: customerClass.qtdWires, unit: '' },
+      { name: "Quantidade de fases", info: customerClass.fases, unit: '' },
+      { name: "Disjuntor NEMA", info: customerClass.circuitBreakerNEMA, unit: 'A' },
+      { name: "Disjuntor DIN", info: customerClass.circuitBreakerDIN, unit: 'A' },
+      { name: "Condutor fase/neutro", info: customerClass.conductingWire, unit: 'mm²' },
+      { name: "Condutor de aterramento", info: customerClass.groundingWire, unit: 'mm²' },
+      { name: "Condutor de proteção", info: customerClass.protectiveWire, unit: 'mm²' },
+      { name: "Eletroduto PVC", info: customerClass.conduitPVC, unit: 'mm' },
+      { name: "Eletroduto Aço", info: customerClass.conduitSteel, unit: 'mm' },
+      { name: "Quantidade de eletrodos", info: customerClass.qtdGroundingElectrode, unit: '' },
+    ]
+
+    /*
+    Faz a verificação se a demanda calculada é atendedida pela classe de consumidor selecionada 
+    Caso atenda, é exibido uma lista com as informações presentes no objeto listInformation
+    Caso não atenda, é apresentado uma mensagem de erro para o usuário  
+    */
+
+    return (
+      customerClass.band ?
+        <View style={styles.containerListDesign}>
+          {
+            listInformation.map(item => (
+              <View key={item.name} style={styles.lineListDesign}>
+                <Text >{item.name}</Text>
+                <Text >{item.info}
+                  <Text> {item.unit}</Text>
+                </Text>
+              </View>
+            ))
+          }
+        </View>
+        :
+        (<Text style={styles.txt_errorInformation}>
+          Demanda não compatível para a configuração de rede. Tente selecionar outro sistema!
+          Carga máxima permitida no sistema é de {customerClass.maxLoad} kW.
+        </Text>)
+    )
+  }
+
+
+  function ModalTypeCustomer() {
+
+    function setModal(index) {
+      dataClientEspecification.clientType.map(item => item.select = false),
+        dataClientEspecification.clientType[index].select = true,
+        setModalVisibleTypeCustomer(!modalVisibleTypeCustomer)
+    }
+
+    return (
+      <Modal animationType="slide" visible={modalVisibleTypeCustomer} >
+        <View >
+          <Text style={styles.txt_titleModal}>Categoria da Unidade Consumidora</Text>
+          <TouchableOpacity
+            style={styles.buttonBackModal}
+            onPress={() => { setModalVisibleTypeCustomer(!modalVisibleTypeCustomer) }}
+          >
+            <Ionicons name="md-arrow-back" size={24} color={colors.secondary} />
+          </TouchableOpacity>
+        </View>
+
+        <FlatList
+          data={dataClientEspecification.clientType}
+          keyExtractor={item => item.title}
+          renderItem={({ item, index }) =>
+            <TouchableOpacity style={styles.listItemsModal} onPress={() => setModal(index)}>
+              <Text>{item.title}</Text>
+            </TouchableOpacity>
+          }
+        />
+      </Modal>
+    )
+  }
+
+  function ModalPlaceCustomer() {
+
+    function setModal(index) {
+      dataClientEspecification.placeClientType.map(item => item.select = false),
+        dataClientEspecification.placeClientType[index].select = true,
+        setModalVisiblePlaceCustomer(!modalVisiblePlaceCustomer)
+    }
+
+    return (
+      <Modal animationType="slide" visible={modalVisiblePlaceCustomer} >
+        <View >
+          <Text style={styles.txt_titleModal}>Tipo de Rede</Text>
+          <TouchableOpacity
+            style={styles.buttonBackModal}
+            onPress={() => { setModalVisiblePlaceCustomer(!modalVisiblePlaceCustomer) }}
+          >
+            <Ionicons name="md-arrow-back" size={24} color={colors.secondary} />
+          </TouchableOpacity>
+        </View>
+
+        <FlatList
+          data={dataClientEspecification.placeClientType}
+          keyExtractor={item => item.title}
+          renderItem={({ item, index }) =>
+            <TouchableOpacity style={styles.listItemsModal} onPress={() => setModal(index)}>
+              <Text style={styles.txt_listItemsModal}>{item.title}</Text>
+              <Text>{item.description}</Text>
+            </TouchableOpacity>
+          }
+        />
+      </Modal>
+    )
+  }
 
   return (
-
-    <>
-      <ImageBackground source={require('../../assets/background-01.png')} style={{ flex: 1 }}>
-
+    <ImageBackground source={require('../../assets/background-01.png')} style={styles.containerBackground}>
+      <ScrollView >
         {/* Boxes de exibição dos cálculos efetuados - Carga Instalada - Demanda - Classe de Consumidor */}
-        <View style={styles.containerBoxes}>
+        <View style={styles.containerBoxesResults}>
 
-          <View style={styles.boxHeader}>
-            <Text style={styles.txt_titleBox}>Carga instalada</Text>
-            <Text style={styles.txt_subTitleBox}>{connectedLoadTotal.toFixed(2)}</Text>
-            <Text style={styles.txt_subTitleBox2}>kVA</Text>
-          </View>
-
-          <View style={styles.boxHeader}>
-            <Text style={styles.txt_titleBox}>Demanda</Text>
-            <Text style={styles.txt_subTitleBox}>{demandTotal.toFixed(2)}</Text>
-            <Text style={styles.txt_subTitleBox2}>kVA</Text>
-          </View>
-
-          <View style={styles.boxHeader}>
-            <Text style={styles.txt_titleBox}>Consumidor</Text>
-            <Text style={styles.txt_subTitleBox}> {customerClass.band} </Text>
-          </View>
+          <BoxResults title='Carga instalada' value={connectedLoadTotal.toFixed(2)} unit='kVA' />
+          <BoxResults title='Demanda' value={demandTotal.toFixed(2)} unit='kVA' />
+          <BoxResults title='Consumidor' value={customerClass.band} />
 
         </View>
-
 
         {/* Botões das configurações de rede que permitem acesso às modais,tornando-as visíveis quando selecionados 
-        É feito um acesso às tabelas presentes em dataClientEspecification para se verificar quais os items se encontram selecionados (select==true) 
+        É feito um acesso às tabelas presentes em dataClientEspecification para se verificar quais os items se 
+        encontram selecionados (select==true) 
         */}
         <View style={styles.boxConfig}>
-          <Text style={styles.txt_titleBoxConfig}>Configurações da rede</Text>
+          <Text style={styles.txt_titleBoxes}>Configurações da rede</Text>
+          <View style={styles.containerButtonsConfig}>
 
-          <View style={styles.containerButtons}>
-
-            <TouchableOpacity onPress={() => { setModalVisibleFases(!modalVisibleFases) }}>
-              {dataClientEspecification.fases.map((item) => (
-                item.select ? <Text key={item.title} style={styles.buttonConfig} >{item.title}</Text> : null))
-              }
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => { setModalVisibleTypeConsumer(!modalVisibleTypeConsumer) }}>
-              {dataClientEspecification.clientType.map((item) => (
-                item.select ? <Text key={item.title} style={styles.buttonConfig} >{item.title.substring(0, 10).concat('...')} </Text> : null))
-              }
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => { setModalVisiblePlaceConsumer(!modalVisiblePlaceConsumer) }}>
-              {dataClientEspecification.placeClientType.map((item) => (
-                item.select ? <Text key={item.title} style={styles.buttonConfig} >{item.title}</Text> : null))
-              }
-            </TouchableOpacity>
-
-          </View>
-
-          {/*
-           Faz a verificação se a demanda calculada é atendedida pela classe de consumidor selecionada 
-          Caso atenda, é exibido uma lista com as informações presentes no objeto listInformation
-          Caso não atenda, é apresentado uma mensagem de erro para o usuário  
-          */}
-          {customerClass.band ?
-            <ScrollView>
-              <View style={{ padding: 10 }}>
-                {listInformation.map(item => (
-                  <View key={item.name} style={styles.line}>
-                    <Text >{item.name}</Text>
-                    <Text >{item.info}<Text> {item.unid}</Text></Text>
-                  </View>))}
-              </View>
-            </ScrollView> :
-            <Text style={{ textAlign: 'center', textAlignVertical: 'center', padding: 20, fontSize: 18, color: 'red' }}>
-              Carga máxima permitida no sistema é de {customerClass.maxLoad} kW. Demanda não compatível para a configuração de rede. Tente selecionar outro sistema de fases!
-              </Text>}
-
-        </View>
-
-
-        {/* Modais de seleção das configurações de rede */}
-
-        <Modal animationType="slide" visible={modalVisibleFases}>
-
-          <View >
-            <Text style={styles.txt_titleModal}> Ramal de entrada</Text>
-          </View>
-
-          <FlatList
-            data={dataClientEspecification.fases}
-            keyExtractor={item => item.title}
-            renderItem={({ item, index }) =>
-              <TouchableOpacity style={styles.listItemsModal}
-                onPress={() => {
-                  dataClientEspecification.fases.map(item => item.select = false),
-                    dataClientEspecification.fases[index].select = true,
-                    setModalVisibleFases(!modalVisibleFases)
-                }
-                }>
-                <Text style={styles.txt_listItemsModal}>{item.title}</Text>
-                <Text>{item.volt} V</Text>
-              </TouchableOpacity>}
-
-          />
-        </Modal>
-
-        <Modal animationType="slide" visible={modalVisibleTypeConsumer} >
-
-          <View >
-            <Text style={styles.txt_titleModal}>Tipo de customerClass</Text>
-          </View>
-
-          <FlatList
-            data={dataClientEspecification.clientType}
-            keyExtractor={item => item.title}
-            renderItem={({ item, index }) =>
-              <TouchableOpacity style={styles.listItemsModal}
-                onPress={() => {
-                  dataClientEspecification.clientType.map(item => item.select = false),
-                    dataClientEspecification.clientType[index].select = true,
-                    setModalVisibleTypeConsumer(!modalVisibleTypeConsumer)
-                }
-                }>
-                <Text style={styles.txt_listItemsModal}>{item.title}</Text>
-              </TouchableOpacity>
+            {
+              dataClientEspecification.clientType.map((item) => (
+                item.select ? (
+                  <TouchableOpacity
+                    key={item.title}
+                    onPress={() => { setModalVisibleTypeCustomer(!modalVisibleTypeCustomer) }}
+                    style={styles.buttonConfig}>
+                    <FontAwesome name="home" size={24} color={colors.backgroundAlpha} />
+                    <Text style={styles.txt_titleItemsBoxConfig}>{item.title} </Text>
+                    <FontAwesome name="edit" size={24} color={colors.subTilte} />
+                  </TouchableOpacity>)
+                  :
+                  null)
+              )
             }
 
-          />
-        </Modal>
+            {
+              dataClientEspecification.placeClientType.map((item) => (
+                item.select ? (
+                  <TouchableOpacity
+                    key={item.title}
+                    onPress={() => { setModalVisiblePlaceCustomer(!modalVisiblePlaceCustomer) }}
+                    style={styles.buttonConfig}>
+                    <FontAwesome name="map-marker" size={24} color={colors.backgroundAlpha} style={{ marginLeft: 6 }} />
+                    <Text style={styles.txt_titleItemsBoxConfig}>{item.title}</Text>
+                    <FontAwesome name="edit" size={24} color={colors.subTilte} />
+                  </TouchableOpacity>)
+                  :
+                  null)
+              )
+            }
 
-        <Modal animationType="slide" visible={modalVisiblePlaceConsumer} >
-
-          <View >
-            <Text style={styles.txt_titleModal}>Tipo de customerClass</Text>
           </View>
+        </View>
 
-          <FlatList
-            data={dataClientEspecification.placeClientType}
-            keyExtractor={item => item.title}
-            renderItem={({ item, index }) =>
-              <TouchableOpacity
-                style={styles.listItemsModal}
-                onPress={() => {
-                  dataClientEspecification.placeClientType.map(item => item.select = false),
-                    dataClientEspecification.placeClientType[index].select = true,
-                    setModalVisiblePlaceConsumer(!modalVisiblePlaceConsumer)
-                }
-                }>
-                <Text style={styles.txt_listItemsModal}>{item.title}</Text>
-                <Text>{item.description}</Text>
-              </TouchableOpacity>}
+        {/* Lista com resultados do dimensionamento */}
+        <View style={styles.boxListDesign}>
+          <Text style={styles.txt_titleBoxes}>Dimensionamento Tabelas CEMIG ND 5.1 (2020)</Text>
+          < RenderListDesign />
+        </View>
 
-          />
-        </Modal>
+        {/* Modais de seleção das configurações de rede */}
+        <ModalTypeCustomer />
+        <ModalPlaceCustomer />
 
-
-        <View style={styles.containerButtons2}>
+        {/* Botões */}
+        <View style={styles.containerButtons}>
 
           <TouchableOpacity style={styles.buttonCalculate} onPress={() => navigationGoResumeDemand()} >
-            <FontAwesome name="check-square-o" size={24} color={colors.yellow} />
-              <Text style={styles.txt_button}> Resumo</Text>
+            <FontAwesome name="check-square-o" size={24} color={colors.primary} />
+            <Text style={styles.txt_button}> Resumo</Text>
           </TouchableOpacity>
 
 
           <TouchableOpacity style={styles.buttonCalculate} onPress={() => navigationGoMaterialList(customerClass)} >
-              <FontAwesome name="list" size={24} color={colors.yellow} />
-              <Text style={styles.txt_button}> Materiais</Text>
+            <FontAwesome name="list" size={24} color={colors.primary} />
+            <Text style={styles.txt_button}> Materiais</Text>
           </TouchableOpacity>
 
         </View>
 
-
-
-
-
-      </ImageBackground>
-
-
-
-    </>
-
-
+      </ScrollView>
+    </ImageBackground>
   )
 }
 

@@ -1,177 +1,155 @@
-import { StyleSheet, Dimensions, PixelRatio } from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../constants/colors'
-
-const widthPercentageToDP = widthPercent => {
-    const screenWidth = Dimensions.get('window').width;
-    return PixelRatio.roundToNearestPixel(screenWidth * parseFloat(widthPercent) / 100);
-};
-
-const heightPercentageToDP = heightPercent => {
-    const screenHeight = Dimensions.get('window').height;
-    return PixelRatio.roundToNearestPixel(screenHeight * parseFloat(heightPercent) / 100);
-};
-
 
 const styles = StyleSheet.create({
 
     // Containers
+    containerBackground: {
+        flex:1
+    },
 
-    containerBoxes: {
-        padding: 8,
+    containerBoxesResults: {
         flexDirection: 'row',
-        justifyContent: 'center',
+    },
+
+    containerButtonsConfig: {
+        padding: 10,
+    },
+
+    containerListDesign: {
+        padding: 10,
+        marginBottom: 15
     },
 
     containerButtons: {
-        padding: 8,
         flexDirection: 'row',
-        justifyContent: 'center'
-    },
-
-    containerButtons2: {
         padding: 8,
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
     },
-
 
     // Views
 
-    boxHeader: {
-        flex: 1,
-        margin: 8,
+    boxConfig: {
+        margin: 15,
         borderRadius: 10,
-        backgroundColor: colors.white,
-        elevation: 5
+        elevation: 9,
+        
+        backgroundColor: colors.secondary,
     },
 
-    boxConfig: {
-        flex: 1,
-        backgroundColor: colors.white,
+    boxListDesign: {
         marginHorizontal: 15,
         borderRadius: 10,
         elevation: 9,
+        
+        backgroundColor: colors.secondary,
     },
-
 
     // Textos
-    txt_titleBox: {
-        color: colors.yellow,
-        fontSize: 12,
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        height: 35,
-        backgroundColor: colors.blackalpha,
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
 
-    },
-
-    txt_subTitleBox: {
-        flexGrow: 1,
-        color: 'black',
-        fontSize: 25,
-        fontWeight: 'bold',
-        textAlignVertical: 'center',
-        textAlign: 'center',
-    },
-
-    txt_subTitleBox2: {
-        color: 'gray',
-        fontSize: 12,
-        textAlignVertical: 'bottom',
-        textAlign: 'center',
-    },
-
-
-    txt_titleBoxConfig: {
-        color: colors.yellow,
+    txt_titleBoxes: {
         fontSize: 12,
         height: 35,
+        
         textAlign: 'center',
         textAlignVertical: 'center',
-        backgroundColor: colors.blackalpha,
+        
+        color: colors.primary,
+        backgroundColor: colors.backgroundAlpha,
+        
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,
+    },
+
+    txt_titleItemsBoxConfig: {
+        flex: 1,
+        marginLeft: 15
     },
 
     // Linhas
-    line: {
-        justifyContent: 'space-between',
-        padding: 2,
+
+    lineListDesign: {
         flexDirection: 'row',
+        padding: 6,
+        
+        justifyContent: 'space-between',
+        
         borderBottomWidth: 1,
-        borderBottomColor: colors.lighter,
+        borderBottomColor: colors.borderList,
     },
 
     // Botões
 
     buttonConfig: {
-        color: colors.yellow,
-        width: widthPercentageToDP(26),
-        height: 35,
-        fontSize: 12,
-        backgroundColor: colors.blackalpha,
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        margin: 5,
-        borderRadius: 10,
+        flexDirection: 'row',
+
+        alignItems: 'center',
+
+        marginVertical:5,
     },
 
-    button: {
-        backgroundColor: colors.blackalpha,
-        padding: 8,
-        marginHorizontal: 10,
-        marginVertical: 5,
-        borderRadius: 10,
-        flexDirection:'row', 
-        flexWrap:'wrap',
-       // width: widthPercentageToDP(30),
-
-        
-    },
 
     txt_button: {
-        color: colors.yellow,
         fontWeight: 'bold',
+
+        color: colors.primary,
     },
 
+    txt_errorInformation: {
+        fontSize: 16,
+        padding: 20,
+        
+        textAlign: 'center',
+        textAlignVertical: 'center',
+                
+        color: 'red'
+    },
 
 
     // Modals
 
     listItemsModal: {
         padding: 10,
+
         borderBottomWidth: 1,
-        borderBottomColor: colors.light,
+        borderBottomColor: colors.borderList,
     },
 
     txt_titleModal: {
-        backgroundColor: colors.blackalpha,
         fontSize: 16,
+        padding: 16,
         fontWeight: 'bold',
-        color: colors.white,
-        padding: 15,
+        
         textAlign: 'center',
+        
+        color: colors.secondary,
+        backgroundColor: colors.backgroundAlpha,
     },
 
     txt_listItemsModal: {
-        fontSize: 16,
         fontWeight: 'bold'
     },
 
+    buttonBackModal: {
+        padding: 16,
+        position: 'absolute',
+    },
+
     buttonCalculate: {
-        flexDirection:'row',
-        backgroundColor: colors.blackalpha,
+        flex:1,
+        flexDirection: 'row',
+        
         margin: 10,
         padding: 8,
-        borderRadius: 10,
-        textAlign: 'center',
         fontWeight: 'bold',
+        borderRadius: 10,
+        
+        textAlign: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'space-evenly',
+        
+        backgroundColor: colors.backgroundAlpha,
     },
-    
+
 });
 
 export default styles;

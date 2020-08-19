@@ -2,24 +2,6 @@ import React from 'react';
 
 export default {
 
-fases: [
-    {
-        title: 'Trifásico ',
-        volt: '220/127',
-        select: true
-    },
-    {
-        title: 'Bifásico',
-        volt: '220/127',
-        select: false
-    },
-    {
-        title: 'Monofásico',
-        volt: '127',
-        select: false
-    }
-],
-
 clientType: [
     {
         title: 'Residencial',
@@ -116,23 +98,35 @@ clientType: [
 
 placeClientType: [
     {
-        title: 'Urbano',
-        description: 'Atendida por rede de distribuição secundária TRIFÁSICA(127/220V)',
+        title: 'Urbano ou Rural - Monofásico',
+        description: 'Atendida por rede de distribuição secundária TRIFÁSICA(127/220V) com ligação a 2 fios',
+        select: false
+    },
+
+    {
+        title: 'Urbano ou Rural - Bifásico',
+        description: 'Atendida por rede de distribuição secundária TRIFÁSICA(127/220V) com ligação a 3 fios',
+        select: false
+    },
+
+    {
+        title: 'Urbano ou Rural - Trifásico - com demanda menor que 75kVA',
+        description: 'Atendida por rede de distribuição secundária TRIFÁSICA(127/220V) com ligação a 4 Fios',
         select: true
     },
     {
-        title: 'Rural1',
-        description: 'Atendida por rede de distribuição secundária TRIFÁSICA(127/220V)',
-        select: false
-    },
-    {
-        title: 'Rural2',
+        title: 'Rural - Monofásica',
         description: 'Atendida por rede de distribuição primária MONOFÁSICA com transformador EXCLUSIVO',
         select: false
     },
     {
-        title: 'Rural3',
+        title: 'Rural - Trifásica',
         description: 'Atendida por rede de distribuição primária TRIFÁSICA com transformador EXCLUSIVO',
+        select: false
+    },
+    {
+        title: 'Urbana ou Rural - Trifásica - com demanda de 75kVA a 304 kVA',
+        description: 'Atendida por rede de distribuição secundária TRIFÁSICA(127/220V) com demanda de 75kVA a 304 kVA',
         select: false
     },
 ],

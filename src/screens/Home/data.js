@@ -21,57 +21,57 @@ const itemsMenu = [
     {
         id: 3,
         title: 'Cafeteira elétrica',
-        icon: require('../../assets/icons/5.png')
+        icon: require('../../assets/icons/3.png')
     },
     {
         id: 4,
         title: 'Eletrodomésticos - Cozinha',
-        icon: require('../../assets/icons/6.png')
+        icon: require('../../assets/icons/4.png')
     },
     {
         id: 5,
         title: 'Torneira elétrica',
-        icon: require('../../assets/icons/8.png')
+        icon: require('../../assets/icons/5.png')
     },
     {
         id: 6,
         title: 'Ferro elétrico',
-        icon: require('../../assets/icons/7.png')
+        icon: require('../../assets/icons/6.png')
     },
     {
         id: 7,
         title: 'Máquinas de lavar roupa',
-        icon: require('../../assets/icons/3.png')
+        icon: require('../../assets/icons/7.png')
     },
     {
         id: 8,
         title: 'Máquina de secar roupa',
-        icon: require('../../assets/icons/13.png')
+        icon: require('../../assets/icons/8.png')
     },
     {
         id: 9,
         title: 'Máquinas de lavar e secar louças',
-        icon: require('../../assets/icons/4.png')
+        icon: require('../../assets/icons/9.png')
     },
     {
         id: 10,
         title: 'Aquecedores de água',
-        icon: require('../../assets/icons/9.png')
+        icon: require('../../assets/icons/10.png')
     },
     {
         id: 11,
         title: 'Demais eletrodomésticos',
-        icon: require('../../assets/icons/10.png')
+        icon: require('../../assets/icons/11.png')
     },
     {
         id: 12,
         title: 'Ar condicionado',
-        icon: require('../../assets/icons/11.png')
+        icon: require('../../assets/icons/12.png')
     },
     {
         id: 13,
         title: 'Banheira de hidromassagem',
-        icon: require('../../assets/icons/12.png')
+        icon: require('../../assets/icons/13.png')
     },
     {
         id: 14,
@@ -93,9 +93,6 @@ const itemsMenu = [
         title: 'Raio-X',
         icon: require('../../assets/icons/17.png')
     }
-
-
-
 
 ]
 

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, SectionList, Image, ImageBackground } from 'react-native';
+
+import { View, Text, TouchableOpacity, FlatList, Image, ImageBackground } from 'react-native';
 
 import styles from './styles';
+
 import listAppliances from '../../constants/dataAppliances'; // Contém Objetos com a lista de todos os aparelhos eletrodoméstios separado por grupos
 
 // Array com a Quantidade de aparelhos selecioandos de cada conjunto de aparelhos do menu inicial em HOME
 global.qtdAppliances = Array(18).fill(0)
-
 // Array com a carga instalada de cada conjunto de aparelhos do menu inicial em HOME
 global.connectedLoad = Array(18).fill(0)
 
@@ -14,10 +15,8 @@ export default function ElectricalAppliances({ route }) {
 
   // ParÂmetros de identificação da rota
   var { idSelection, titleSelection, iconSelection } = route.params;
-
   // Objeto com os aparelhos eletrodomésticos
   const [electricalAppliance, setElectricalAppliance] = useState([])
-
   // Forçar Render dos elementos
   const [, forceUpdate] = useState(0);
 
@@ -120,17 +119,19 @@ export default function ElectricalAppliances({ route }) {
         <View style={styles.containerButtonsAddSub}>
 
           {/* Botão de diminuir - É feito uma verificação: ele somente aparecerá se houver pelo menos um item selecioando*/}
-          {item.qtd != 0 ?
-            <TouchableOpacity onPress={() => SubAppliance(index)}>
-              <Text style={styles.buttonAddSub}> - </Text>
-            </TouchableOpacity>
-            : null
+          {
+            item.qtd != 0 ? (
+              <TouchableOpacity onPress={() => SubAppliance(index)}>
+                <Text style={styles.buttonAddSub}> - </Text>
+              </TouchableOpacity>)
+              : null
           }
 
-          {/* Texto indicador de quantidade de electricalAppliance - É feito uma verificação: ele somente aparecerá se houver pelo menos um item selecioando */}
-          {item.qtd != 0 ?
-            <Text style={styles.txt_qtdItems}> {item.qtd} </Text>
-            : null
+          {/* Texto indicador de quantidade de aparelhos selecionados */}
+          {
+            item.qtd != 0 ?
+              <Text style={styles.txt_qtdItems}> {item.qtd} </Text>
+              : null
           }
 
           {/* Botão de somar */}
@@ -144,6 +145,7 @@ export default function ElectricalAppliances({ route }) {
     )
   }
 
+  // ------------------------------------------------------------------------------------
 
   // Somando a quantidade de aparelhos que foram selecionados e atribuindo para a respectiva posição(index) no vetor global
   let sumAppliances = electricalAppliance.reduce((a, b) => a + b.qtd, 0);
@@ -162,33 +164,25 @@ export default function ElectricalAppliances({ route }) {
     <>
       <ImageBackground source={require('../../assets/background-01.png')} style={{}}>
 
-        {/* Cabeçalho com ícone e botões */}
+        {/*Cabeçalho com ícone e botões */}
         <View style={styles.containerHeader}>
           <Image source={iconSelection} style={styles.selectedIcon} />
-
           <View>
             <Text style={styles.txt_totalSelectedItems}> Selecionados: {sumAppliances} </Text>
-
             <TouchableOpacity onPress={() => ResetAppliance()}>
               <Text style={styles.buttonClear}>Limpar</Text>
             </TouchableOpacity>
-          
           </View>
-
         </View>
 
       </ImageBackground>
 
+      <Text style={styles.txt_titleList}> {titleSelection} </Text>
 
-
-      {/* 
-      Lista dos aparelhos do grupo selecionado.
-      Utiliza a função "RenderListItems" para renderizar os aparelhos
-      */}
-      <SectionList
-        sections={[{ title: titleSelection, data: electricalAppliance }]}
+      {/*Lista dos aparelhos do grupo selecionado. Utiliza a função "RenderListItems" para renderizar os aparelhos*/}
+      <FlatList
+        data={electricalAppliance}
         keyExtractor={item => item.name}
-        renderSectionHeader={({ section }) => <Text style={styles.txt_titleList}> {section.title} </Text>}
         renderItem={({ item, index }) => <RenderListItems item={item} index={index} />}
       />
 

@@ -1,14 +1,13 @@
 {
   "expo": {
     "name": "Minha Demanda Elétrica",
-    "slug": "minha-demanda",
+    "slug": "minha-demanda-eletrica",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
-      //"resizeMode": "contain",
       "backgroundColor": "#F7BE00"
     },
     "updates": {
@@ -18,10 +17,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.jbsdev.minhademandaeletrica",
+      "buildNumber": "1.0.0"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "android": {
+      "package": "com.jbsdev.minhademandaeletrica",
+      "versionCode": 1
     }
   }
 }

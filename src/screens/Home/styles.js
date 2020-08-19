@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
+import { Dimensions, PixelRatio } from 'react-native';
+
 import colors from '../../constants/colors'
 
-import { Dimensions, PixelRatio } from 'react-native';
 // Função que retorna as dimensões da tela
 
 const widthPercentageToDP = widthPercent => {
@@ -22,13 +23,6 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        alignItems: 'stretch',
-        justifyContent: 'center',
-    },
-
-    logoContainer: {
-        marginTop: -5,
-        marginBottom: 5
     },
 
     // Imagens e demais componentes visuais
@@ -37,63 +31,23 @@ const styles = StyleSheet.create({
         width: '100%', 
         height: 130, 
         resizeMode: 'center',
-        
-        
-    },
-
-    iconMenu: {
-        width: 50,
-        height: 50,
-        margin: 5,
-        tintColor: colors.white
-    },
-
-    itemMenu: {
-        flexBasis: 0,
-        backgroundColor: colors.blackalpha,
-        flexGrow: 1,
-        padding: 10,
-        height: heightPercentageToDP('18%'),
-        marginVertical: 1,
-        marginHorizontal: 1,
-    },
-
-    numberBox: {
-        position: 'absolute',
-        width: 25,
-        height: 25,
-        borderRadius: 15,
-        top: "5%",
-        left: "90%",
-        backgroundColor: colors.yellow,
-        justifyContent: "center",
-        alignItems: "center"   
-    },
-
-    line: {
-        borderBottomColor: colors.blackalpha,
-        borderBottomWidth: 1,
-        
+        marginTop: -5,
+        marginBottom: 5
     },
 
     // Textos
 
-    txt_headList: {
+    txt_headerList: {
         color: 'white', 
         textAlign: 'center', 
         fontWeight: 'bold', 
-        backgroundColor: colors.blackalpha, 
+        backgroundColor: colors.backgroundAlpha, 
         padding: 10, 
         marginBottom:2 
     },
 
-    txt_titleItemMenu: {
-        fontSize: 11,
-        color: colors.white,
-    },
-
     txt_buttonCalculate: {
-        color: colors.yellow,
+        color: colors.primary,
         fontSize: 16,
         fontWeight: 'bold',
     },
@@ -102,11 +56,10 @@ const styles = StyleSheet.create({
 
     buttonCalculate: {
         flexDirection:'row',
-        backgroundColor: colors.blackalpha,
+        backgroundColor: colors.backgroundAlpha,
         margin: 10,
         padding: 8,
         borderRadius: 10,
-        fontWeight: 'bold',
         alignItems: 'center',
         justifyContent: 'center'
     },
